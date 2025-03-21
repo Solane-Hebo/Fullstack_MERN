@@ -4,12 +4,13 @@ import asyncHandler from 'express-async-handler'
 
 export const createNewsArticle = asyncHandler( async (req,  res, next) => {
     const { title, content} = req.body
+    const author = req.user._id 
 
     if(!title && !content){
         return res.status(400).json({message: "Title and content are required"})
     }
     
-    const newsArticle = await News.create({ title, content })
+    const newsArticle = await News.create({ title, content, author })
 
     res.status(201).json(newsArticle)
 
@@ -23,7 +24,8 @@ export const createNewsArticle = asyncHandler( async (req,  res, next) => {
 
 // hämta alla inlägg
 export const getNewsArticles = asyncHandler(async (req, res) =>{
-    const newsArticles = await News.find().exec()
+    const newsArticles = await News.find()
+    .populate("author", "name").exec()
 
     res.status(200).json(newsArticles)
 })
@@ -37,7 +39,7 @@ if(!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: "invalid id" })
 }
 
-const newsArticle = await News.findById(id).exec()
+const newsArticle = await News.findById(id).populate("author", "name").exec()
 
 if(!newsArticle) {
     return res.status(404).json({ message:"News article not found" })

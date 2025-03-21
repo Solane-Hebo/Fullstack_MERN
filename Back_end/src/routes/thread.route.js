@@ -1,6 +1,7 @@
 import express from 'express'
 import { createThread, deleteThread, getThreads, uppdateThread } from '../controllers/thread.controller.js'
 import { createComment, deleteComment } from '../controllers/comment.controller.js'
+import { verifyToken } from '../middleware/auth.middleware.js'
 
 const router = express.Router()
 
@@ -15,15 +16,12 @@ router.route('/')
  .put(uppdateThread)
  .patch(uppdateThread)
  .delete(deleteThread)
- 
 
-
- router.route('/:threadId/threadId')
+ router.route('/:threadId/comment')
  .post(createComment)
 
-
- router.route('/:threadId/comment/:id')
-  .delete(deleteComment)
+//  router.route('/:threadId/comment/:id')
+//   .delete(deleteComment)
 //    .post(createComment)
 
 
