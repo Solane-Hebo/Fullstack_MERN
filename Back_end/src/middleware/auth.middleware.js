@@ -22,5 +22,21 @@ export const verifyToken = (req, res, next) => {
     }
 }
 
+export const verifyRoles = (...allowedRoles) => {
+    return (req, res, next) => {
+        if(!req.user.role) {
+            return res.ststus(403).json({message: `Access denied: No role asigend` })
+        }
+
+
+        if(!allowedRoles.some(role => req.user.role === role)) {
+            res.status(403).json({message: `Access denied: Requires role (${allowedRoles.join(', ')})` })
+        }
+
+        next()
+  
+    }
+}
+
 
 

@@ -14,11 +14,6 @@ export const createNewsArticle = asyncHandler( async (req,  res, next) => {
 
     res.status(201).json(newsArticle)
 
-    // de har två rader är samma som den första
-    // const news = new News({title, content})
-    // await news.save()
-
-    // res.json(newsArticle)
 
 })
 
@@ -68,9 +63,6 @@ export const updateNewsArticle = asyncHandler(async (req, res) =>{
        res.status(400).json({message:"No changes provided"})
     }
      
-
-    // if(!title && !content) {
-    //     res.status(400).json({message:"No changes provided"})
     
     const updateNewsArticle = await News.findByIdAndUpdate(id, toUpdate, { new: true}) 
     if(!updateNewsArticle) {
@@ -78,10 +70,6 @@ export const updateNewsArticle = asyncHandler(async (req, res) =>{
     }
 
     res.status(200).json(updateNewsArticle)
-    //eller
-    //   const updateNewsArticle = await News.findById(id)
-    //   updateNewsArticle.title = title
-    //   updateNewsArticle.save()
      
 })
 

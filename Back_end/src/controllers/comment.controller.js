@@ -38,7 +38,12 @@ export const deleteComment = asyncHandler(async (req, res, next)=>{
         return res.status(404).json({message: 'Comment not found'})
     }
 
-    // TODO Kolla om användaren är admin eller om användaren är den som skapat kommentaren 
+    // TODO Kolla om användaren är admin eller om användaren är den som skapat kommentaren //todo klar
+    
+    if(comment.user.toString() !== req.user._id && req.user.role !== "admin" && req.user.role !== "moderator") {
+        return res.status(403).json({message: 'You are not allowed to delete this comment'})
+    }
+    
 
     const thread = await Thread.findById(comment.thread).exec()
     thread.comments.pull(id)

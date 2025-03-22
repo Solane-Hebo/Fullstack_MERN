@@ -64,11 +64,18 @@ export const deleteThread = asyncHandler(async (req, res, next)=>{
         return res.status(400).json({message: 'Invalid id'})
     }
 
-    // Todo: Ändra att man kan ta bort sin egen eller om man är addmin
-    const thread = await Thread.findByIdAndDelete(id).exec()
+    // Todo: Ändra att man kan ta bort sin egen eller om man är addmin //todo klar
+    // const thread = await Thread.findByIdAndDelete(id).exec()
+    const thread = await Thread.findById(id).exec()
     if(!thread) {
         return res.status(404).json({message: 'Threadd not found'})
     }
+
+    if(thread.user.toString() !== req.user._id && req.user.role !== "admin" && req.user.role !== "moderator") {
+        return res.status(403).json({message: 'You are not allowed to delete this thread'})
+    }
+    
+    await Thread.deleteOne({ _id: id }).exec()
 
     res.sendStatus(204)
 })
