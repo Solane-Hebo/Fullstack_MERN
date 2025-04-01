@@ -7,11 +7,17 @@ import threadRoutes from './routes/thread.route.js'
 import commentRoutes from './routes/comment.route.js'
 import userRoutes from './routes/user.route.js'
 import { verifyToken } from './middleware/auth.middleware.js'
+import cors from 'cors'
 
 
 const app = express()
 
-// CRAD function
+const whitelist = ['http://localhost:5174', 'http://localhost:6565', '*']
+
+
+app.use(cors())
+
+
 
 //Model View Controller
 app.use(express.json())
