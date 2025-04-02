@@ -1,11 +1,11 @@
-
 import { useState } from "react"
 import { RiLoaderFill } from "react-icons/ri"
 import axios from "../api/axios"
 import { useAuth } from "../contexts/authContext"
 import { useNavigate } from "react-router"
-const AdminPage = () => {
-    
+
+const CreateThread = () => {
+
     const [formData, setFormData] = useState({title: '', content: ''})
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
@@ -31,7 +31,7 @@ const AdminPage = () => {
             return
         }
         try {
-            const res = await axios.post('api/news', formData, {
+            const res = await axios.post('api/threads', formData, {
                 headers: {
                     authorization: `Bearer ${token}`
                 }
@@ -39,7 +39,7 @@ const AdminPage = () => {
             if(res.status !== 201) return
 
             setFormData({title: '', content: ''})
-            navigate('/')
+            navigate('/threads')
 
         } catch (error) {
             console.log(error.message)
@@ -51,7 +51,7 @@ const AdminPage = () => {
 
   return (
     <div className="wrapper">
-      <h1 className="text-3xl font-bold my-5">Create a news post</h1>
+      <h1 className="text-3xl font-bold my-5">Create a thread</h1>
       <form className="space-y-3" onSubmit={handleSubmit}>
         <div>
             <label htmlFor="title">Title</label>
@@ -72,4 +72,4 @@ const AdminPage = () => {
   )
 }
 
-export default AdminPage
+export default CreateThread

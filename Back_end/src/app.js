@@ -8,6 +8,7 @@ import commentRoutes from './routes/comment.route.js'
 import userRoutes from './routes/user.route.js'
 import { verifyToken } from './middleware/auth.middleware.js'
 import cors from 'cors'
+import notificationRoute from './routes/notification.route.js'
 
 
 const app = express()
@@ -27,6 +28,7 @@ app.use('/api/news', newsRoute)
 app.use('/api/threads', verifyToken, threadRoutes)   //added token
 app.use('/api/comments', commentRoutes)
 app.use('/api/auth', userRoutes)
+app.use('/api/notifications', notificationRoute)
 
 
 

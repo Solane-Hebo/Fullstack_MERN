@@ -16,6 +16,7 @@ import RegisterPage from './pages/RegisterPage'
 import ThreadsPage from './pages/ThreadsPage'
 import ProfilePage from './pages/ProfilePage'
 import AdminPage from './pages/AdminPage'
+import CreateThreadPage from './pages/CreateThread'
 
 
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
           {
             path: 'threads',
             element: <ThreadsPage />
+          },
+          {
+            path: 'threads/create',
+            element: <CreateThreadPage />
           },
           {
             path: 'profile',
